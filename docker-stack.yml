@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  webapi:
+    image: ${DOCKER_REGISTRY-}northwindwebapi
+    networks:
+      - northwind-net
+    depends_on:
+      - rabbitmq
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "5000:80"
+      - "5001:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  userregistrationhandlerservice:
+    image: ${DOCKER_REGISTRY-}northwinduserregistrationhandlerservice
+    networks:
+      - northwind-net
+    depends_on:
+      - rabbitmq
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  userregistrationnotifier:
+    image: ${DOCKER_REGISTRY-}northwinduserregistrationnotifier
+    networks:
+      - northwind-net
+    depends_on:
+      - rabbitmq
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  userregistrationservice:
+    image: ${DOCKER_REGISTRY-}northwinduserregistrationservice
+    networks:
+      - northwind-net
+    depends_on:
+      - rabbitmq
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  welcomeemailservice:
+    image: ${DOCKER_REGISTRY-}northwindwelcomeemailservice
+    networks:
+      - northwind-net
+    depends_on:
+      - rabbitmq
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  rabbitmq:
+    image: masstransit/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_DEFAULT_VHOST=/
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - northwind-net
+
+networks:
+  northwind-net:
+    driver: overlay
