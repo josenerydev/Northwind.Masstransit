@@ -1,21 +1,21 @@
 using MassTransit;
 
-using Northwind.NotificationService;
+using Northwind.UserRegistrationNotifier;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
         services.AddMassTransit(x =>
         {
-            x.AddConsumer<UserNotificationConsumer>();
+            x.AddConsumer<UserRegistrationNotificationConsumer>();
 
             x.UsingRabbitMq((context, cfg) =>
             {
                 cfg.Host("rabbitmq://rabbitmq");
 
-                cfg.ReceiveEndpoint("user-notification-queue", e =>
+                cfg.ReceiveEndpoint("user-registration-notification-queue", e =>
                 {
-                    e.ConfigureConsumer<UserNotificationConsumer>(context);
+                    e.ConfigureConsumer<UserRegistrationNotificationConsumer>(context);
                 });
             });
         });

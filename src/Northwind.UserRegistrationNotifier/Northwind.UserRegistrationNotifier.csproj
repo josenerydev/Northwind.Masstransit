@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-Northwind.UserRegistrationNotificationService-da95c16e-837c-4d71-961c-337a06828026</UserSecretsId>
+    <UserSecretsId>dotnet-Northwind.UserRegistrationNotifier-61535c4d-dbf8-4ab2-b5bf-421bc2de8deb</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>

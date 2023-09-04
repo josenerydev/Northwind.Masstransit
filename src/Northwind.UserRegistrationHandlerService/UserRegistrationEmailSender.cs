@@ -2,9 +2,9 @@
 
 using Northwind.Contracts;
 
-namespace Northwind.UserRegistrationNotificationService
+namespace Northwind.UserRegistrationHandlerService
 {
-    public class UserRegisteredConsumer : IConsumer<UserRegistered>
+    public class UserRegistrationEmailSender : IConsumer<UserRegistered>
     {
         public async Task Consume(ConsumeContext<UserRegistered> context)
         {

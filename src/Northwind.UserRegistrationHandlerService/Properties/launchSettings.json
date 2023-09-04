@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Northwind.UserRegistrationNotificationService": {
+    "Northwind.UserRegistrationHandlerService": {
       "commandName": "Project",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"

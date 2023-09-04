@@ -10,7 +10,9 @@
         "northwind.userregistrationservice": "StartDebugging",
         "northwind.notificationservice": "StartDebugging",
         "northwind.userregistrationnotificationservice": "StartDebugging",
-        "northwind.welcomeemailservice": "StartDebugging"
+        "northwind.welcomeemailservice": "StartDebugging",
+        "northwind.userregistrationhandlerservice": "StartDebugging",
+        "northwind.userregistrationnotifier": "StartDebugging"
       }
     }
   }

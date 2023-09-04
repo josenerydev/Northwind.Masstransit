@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.8'
 
 services:
   northwind.webapi:
@@ -11,13 +11,13 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-  northwind.notificationservice:
+  northwind.userregistrationhandlerservice:
     environment:
       - DOTNET_ENVIRONMENT=Development
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
 
-  northwind.userregistrationnotificationservice:
+  northwind.userregistrationnotifier:
     environment:
       - DOTNET_ENVIRONMENT=Development
     volumes:
