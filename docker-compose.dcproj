@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>85eaddac-9794-4e4d-b43c-af4bdb3cfc63</ProjectGuid>
+    <ProjectGuid>cbe58b97-3c95-4875-b466-d809450b522f</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>northwind.webapi</DockerServiceName>

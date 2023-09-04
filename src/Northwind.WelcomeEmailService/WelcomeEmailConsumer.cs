@@ -2,7 +2,7 @@
 
 using Northwind.Contracts;
 
-namespace Northwind.EmailService
+namespace Northwind.WelcomeEmailService
 {
     public class WelcomeEmailConsumer : IConsumer<SendWelcomeEmail>
     {

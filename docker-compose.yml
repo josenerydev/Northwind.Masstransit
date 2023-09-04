@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.4'
 
 services:
   northwind.webapi:
@@ -10,12 +10,22 @@ services:
       - northwind-net
     depends_on:
       - rabbitmq
-
-  northwind.emailservice:
-    image: ${DOCKER_REGISTRY-}northwindemailservice
+      
+  northwind.notificationservice:
+    image: ${DOCKER_REGISTRY-}northwindnotificationservice
     build:
       context: .
-      dockerfile: src/Northwind.EmailService/Dockerfile
+      dockerfile: src/Northwind.NotificationService/Dockerfile
+    networks:
+      - northwind-net
+    depends_on:
+      - rabbitmq
+
+  northwind.userregistrationnotificationservice:
+    image: ${DOCKER_REGISTRY-}northwinduserregistrationnotificationservice
+    build:
+      context: .
+      dockerfile: src/Northwind.UserRegistrationNotificationService/Dockerfile
     networks:
       - northwind-net
     depends_on:
@@ -26,6 +36,16 @@ services:
     build:
       context: .
       dockerfile: src/Northwind.UserRegistrationService/Dockerfile
+    networks:
+      - northwind-net
+    depends_on:
+      - rabbitmq
+
+  northwind.welcomeemailservice:
+    image: ${DOCKER_REGISTRY-}northwindwelcomeemailservice
+    build:
+      context: .
+      dockerfile: src/Northwind.WelcomeEmailService/Dockerfile
     networks:
       - northwind-net
     depends_on:

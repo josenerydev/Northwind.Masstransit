@@ -2,7 +2,7 @@
 
 using Northwind.Contracts;
 
-namespace Northwind.EmailService
+namespace Northwind.UserRegistrationNotificationService
 {
     public class UserRegisteredConsumer : IConsumer<UserRegistered>
     {
@@ -12,8 +12,8 @@ namespace Northwind.EmailService
 
             await context.Send<SendWelcomeEmail>(new Uri("queue:welcome-email-queue"), new
             {
-                UserId = context.Message.UserId,
-                Email = context.Message.Email
+                context.Message.UserId,
+                context.Message.Email
             });
 
             Console.WriteLine($"Mensagem SendWelcomeEmail enviada para o usuário: {context.Message.UserId}");

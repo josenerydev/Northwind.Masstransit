@@ -7,7 +7,10 @@
         "northwind.webapi": "StartDebugging",
         "northwind.worker": "StartDebugging",
         "northwind.emailservice": "StartDebugging",
-        "northwind.userregistrationservice": "StartDebugging"
+        "northwind.userregistrationservice": "StartDebugging",
+        "northwind.notificationservice": "StartDebugging",
+        "northwind.userregistrationnotificationservice": "StartDebugging",
+        "northwind.welcomeemailservice": "StartDebugging"
       }
     }
   }

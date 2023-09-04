@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Northwind.EmailService": {
+    "Northwind.WelcomeEmailService": {
       "commandName": "Project",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
