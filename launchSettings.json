@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "northwind.webapi": "StartDebugging",
+        "northwind.worker": "StartDebugging",
+        "northwind.emailservice": "StartDebugging",
+        "northwind.userregistrationservice": "StartDebugging"
+      }
+    }
+  }
+}

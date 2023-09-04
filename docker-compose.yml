@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  northwind.webapi:
+    image: ${DOCKER_REGISTRY-}northwindwebapi
+    build:
+      context: .
+      dockerfile: src/Northwind.WebApi/Dockerfile
+    networks:
+      - northwind-net
+
+  northwind.emailservice:
+    image: ${DOCKER_REGISTRY-}northwindemailservice
+    build:
+      context: .
+      dockerfile: src/Northwind.EmailService/Dockerfile
+    networks:
+      - northwind-net
+
+  northwind.userregistrationservice:
+    image: ${DOCKER_REGISTRY-}northwinduserregistrationservice
+    build:
+      context: .
+      dockerfile: src/Northwind.UserRegistrationService/Dockerfile
+    networks:
+      - northwind-net
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_DEFAULT_VHOST=/
+    ports:
+      - 5672:5672
+      - 15672:15672
+    # volumes:
+    #   - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - northwind-net
+
+# volumes:
+#   rabbitmq_data:
+  
+networks:
+  northwind-net:
+    driver: bridge
