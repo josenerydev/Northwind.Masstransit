@@ -8,6 +8,8 @@ services:
       dockerfile: src/Northwind.WebApi/Dockerfile
     networks:
       - northwind-net
+    depends_on:
+      - rabbitmq
 
   northwind.emailservice:
     image: ${DOCKER_REGISTRY-}northwindemailservice
@@ -16,6 +18,8 @@ services:
       dockerfile: src/Northwind.EmailService/Dockerfile
     networks:
       - northwind-net
+    depends_on:
+      - rabbitmq
 
   northwind.userregistrationservice:
     image: ${DOCKER_REGISTRY-}northwinduserregistrationservice
@@ -24,9 +28,11 @@ services:
       dockerfile: src/Northwind.UserRegistrationService/Dockerfile
     networks:
       - northwind-net
+    depends_on:
+      - rabbitmq
 
   rabbitmq:
-    image: rabbitmq:3-management
+    image: masstransit/rabbitmq
     container_name: rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=guest

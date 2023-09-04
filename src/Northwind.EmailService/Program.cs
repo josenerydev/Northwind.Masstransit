@@ -12,14 +12,20 @@ namespace Northwind.EmailService
                     services.AddMassTransit(x =>
                     {
                         x.AddConsumer<UserRegisteredConsumer>();
+                        x.AddConsumer<WelcomeEmailConsumer>();
 
                         x.UsingRabbitMq((context, cfg) =>
                         {
                             cfg.Host("rabbitmq://rabbitmq");
 
-                            cfg.ReceiveEndpoint("welcome-email-queue", e =>
+                            cfg.ReceiveEndpoint("user-registered-queue", e =>
                             {
                                 e.ConfigureConsumer<UserRegisteredConsumer>(context);
+                            });
+
+                            cfg.ReceiveEndpoint("welcome-email-queue", e =>
+                            {
+                                e.ConfigureConsumer<WelcomeEmailConsumer>(context);
                             });
                         });
                     });
