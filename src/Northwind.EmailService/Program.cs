@@ -11,7 +11,7 @@ namespace Northwind.EmailService
                 {
                     services.AddMassTransit(x =>
                     {
-                        x.AddConsumer<UserValidatedConsumer>();
+                        x.AddConsumer<UserRegisteredConsumer>();
 
                         x.UsingRabbitMq((context, cfg) =>
                         {
@@ -19,7 +19,7 @@ namespace Northwind.EmailService
 
                             cfg.ReceiveEndpoint("welcome-email-queue", e =>
                             {
-                                e.ConfigureConsumer<UserValidatedConsumer>(context);
+                                e.ConfigureConsumer<UserRegisteredConsumer>(context);
                             });
                         });
                     });

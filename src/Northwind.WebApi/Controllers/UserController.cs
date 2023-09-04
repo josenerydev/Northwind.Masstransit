@@ -49,6 +49,16 @@ namespace Northwind.WebApi.Controllers
         /// Usando o ISendEndpointProvider para enviar uma mensagem diretamente para uma fila específica.
         /// O MassTransit criará uma exchange fanout com o nome da fila (neste caso, "register-user-queue").
         /// Essa exchange será usada para rotear a mensagem para a fila desejada.
+        /// Endpoint para registrar um usuário utilizando o ISendEndpointProvider.
+        ///
+        /// No MassTransit, comandos representam uma instrução específica para um serviço e, tipicamente, devem ser consumidos por apenas um consumidor.
+        /// Os comandos mantêm uma relação de um para um com um consumidor e podem ser publicados, garantindo o roteamento automático para o consumidor apropriado.
+        /// Os nomes dos comandos seguem uma sequência "verbo-substantivo", como "RegisterUser".
+        ///
+        /// Aqui, enviamos o comando "RegisterUser" para a fila "register-user-queue" usando o ISendEndpointProvider.
+        /// Ao usar MassTransit com RabbitMQ, se a fila especificada e a exchange correspondente não existirem, o MassTransit as criará.
+        /// Especificamente, ele configura uma exchange do tipo 'fanout' com o nome da fila, que roteia a mensagem para a fila pretendida.
+        /// Esta configuração simplifica o roteamento de mensagens no RabbitMQ sem a necessidade de configurações complexas.
         /// </summary>
         [HttpPost("register-endpoint")]
         public async Task<IActionResult> RegisterWithSendEndPointProvider([FromBody] RegisterUserRequest request)
@@ -59,7 +69,8 @@ namespace Northwind.WebApi.Controllers
             {
                 UserId = Guid.NewGuid(),
                 Username = request.Username,
-                Password = request.Password
+                Password = request.Password,
+                Email = request.Email
             });
 
             return Accepted();
@@ -76,6 +87,9 @@ namespace Northwind.WebApi.Controllers
         /// Usando o IBusControl para enviar uma mensagem. Assim como o ISendEndpointProvider,
         /// se você especificar uma fila diretamente, o MassTransit criará uma exchange com o nome da fila.
         /// Esta é uma maneira de garantir que a mensagem seja roteada para a fila especificada.
+        /// /// Endpoint para registrar um usuário utilizando o IBusControl.
+        /// Similar ao método acima, enviamos um comando para registrar um usuário. Neste método, usamos o IBusControl para obter o endpoint e enviar a mensagem.
+        /// Ao usar o MassTransit com RabbitMQ e o IBusControl, especificar uma fila diretamente leva à criação de uma exchange com o nome da fila, garantindo o roteamento da mensagem para a fila especificada.
         /// </summary>
         [HttpPost("register-bus")]
         public async Task<IActionResult> RegisterWithBus([FromBody] RegisterUserRequest request)
@@ -86,7 +100,8 @@ namespace Northwind.WebApi.Controllers
             {
                 UserId = Guid.NewGuid(),
                 Username = request.Username,
-                Password = request.Password
+                Password = request.Password,
+                Email = request.Email
             });
 
             return Accepted();
@@ -97,5 +112,6 @@ namespace Northwind.WebApi.Controllers
     {
         public string Username { get; set; }
         public string Password { get; set; }
+        public string Email { get; set; }
     }
 }

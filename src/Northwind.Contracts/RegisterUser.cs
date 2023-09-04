@@ -5,5 +5,6 @@
         Guid UserId { get; }
         string Username { get; }
         string Password { get; }
+        string Email { get; }
     }
 }

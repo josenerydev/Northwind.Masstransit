@@ -17,7 +17,8 @@ namespace Northwind.UserRegistrationService
             await context.Publish<UserRegistered>(new
             {
                 context.Message.UserId,
-                context.Message.Username
+                context.Message.Username,
+                context.Message.Email
             });
         }
     }
