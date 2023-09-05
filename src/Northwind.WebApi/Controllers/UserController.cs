@@ -11,13 +11,11 @@ namespace Northwind.WebApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly ISendEndpointProvider _sendEndpointProvider;
-        private readonly IBusControl _busControl;
         private readonly IBus _bus;
 
-        public UserController(ISendEndpointProvider sendEndpointProvider, IBusControl busControl, IBus bus)
+        public UserController(ISendEndpointProvider sendEndpointProvider, IBus bus)
         {
             _sendEndpointProvider = sendEndpointProvider;
-            _busControl = busControl;
             _bus = bus;
         }
 
@@ -96,7 +94,7 @@ namespace Northwind.WebApi.Controllers
         [HttpPost("register-bus")]
         public async Task<IActionResult> RegisterWithBus([FromBody] RegisterUserRequest request)
         {
-            var endpoint = await _busControl.GetSendEndpoint(new Uri("queue:register-user-queue"));
+            var endpoint = await _bus.GetSendEndpoint(new Uri("queue:register-user-queue"));
 
             await endpoint.Send<RegisterUser>(new
             {
