@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Northwind.Contracts\Northwind.Contracts.csproj" />
+    <ProjectReference Include="..\Northwind.UserRegistrationService\Northwind.UserRegistrationService.csproj" />
   </ItemGroup>
 
 </Project>

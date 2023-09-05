@@ -12,11 +12,13 @@ namespace Northwind.WebApi.Controllers
     {
         private readonly ISendEndpointProvider _sendEndpointProvider;
         private readonly IBusControl _busControl;
+        private readonly IBus _bus;
 
-        public UserController(ISendEndpointProvider sendEndpointProvider, IBusControl busControl)
+        public UserController(ISendEndpointProvider sendEndpointProvider, IBusControl busControl, IBus bus)
         {
             _sendEndpointProvider = sendEndpointProvider;
             _busControl = busControl;
+            _bus = bus;
         }
 
         /// <summary>
@@ -106,6 +108,34 @@ namespace Northwind.WebApi.Controllers
 
             return Accepted();
         }
+
+        [HttpPost("register-endpoint-convention")]
+        public async Task<IActionResult> RegisterWithEndpointConvention([FromBody] RegisterUserRequest request)
+        {
+            await _bus.Send<RegisterUser>(new
+            {
+                UserId = Guid.NewGuid(),
+                Username = request.Username,
+                Password = request.Password,
+                Email = request.Email
+            });
+
+            return Accepted();
+        }
+
+        //[HttpPost("register-name-formatter")]
+        //public async Task<IActionResult> RegisterWithNameFormatter([FromBody] RegisterUserRequest request)
+        //{
+        //    await _bus.Send<RegisterUser>(new
+        //    {
+        //        UserId = Guid.NewGuid(),
+        //        Username = request.Username,
+        //        Password = request.Password,
+        //        Email = request.Email
+        //    });
+
+        //    return Accepted();
+        //}
     }
 
     public class RegisterUserRequest
